@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=77,<85", "wheel>=0.45,<0.49"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loomline-sdk"
+version = "0.1.0"
+description = "Framework-neutral, authenticated shared memory over the Loomline HTTP API"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = ["httpx==0.28.1", "pydantic>=2.11.4,<3"]
+license = "MIT"
+
+[project.optional-dependencies]
+langchain = ["langchain==1.4.6", "langchain-core==1.6.12"]
+langgraph = ["langgraph==1.2.16", "langchain-core==1.6.12"]
+crewai = ["crewai==1.15.28"]
+all = ["langchain==1.4.6", "langchain-core==1.6.12", "langgraph==1.2.16", "crewai==1.15.28"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+loomline = ["py.typed"]

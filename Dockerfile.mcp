@@ -1,0 +1,10 @@
+FROM python:3.12.10-slim@sha256:fd95fa221297a88e1cf49c55ec1828edd7c5a428187e67b5d1805692d11588db
+WORKDIR /opt/loomline
+COPY requirements.mcp.lock.txt .
+RUN pip install --no-cache-dir -r requirements.mcp.lock.txt
+COPY packages/loomline-sdk packages/loomline-sdk
+COPY packages/loomline-mcp packages/loomline-mcp
+RUN pip install --no-build-isolation --no-deps ./packages/loomline-sdk ./packages/loomline-mcp && pip check
+RUN useradd --create-home --uid 10001 loomline
+USER loomline
+ENTRYPOINT ["python", "-m", "loomline_mcp"]

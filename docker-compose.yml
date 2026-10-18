@@ -1,0 +1,142 @@
+name: loomline
+services:
+  falkordb:
+    image: falkordb/falkordb:v4.14.11@sha256:3e3870883d8cc4a20171d59fbafeb7cf29b57c09d71c29287fdacf4fedb8a078
+    environment:
+      REDIS_ARGS: --requirepass ${FALKORDB_PASSWORD:?Run python -m scripts.init_local} --appendonly yes --appendfsync always
+      REDISCLI_AUTH: ${FALKORDB_PASSWORD}
+    ports:
+      - "127.0.0.1:${FALKORDB_PORT:-6379}:6379"
+    volumes:
+      - graph_data:/var/lib/falkordb/data
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+  gateway:
+    build: .
+    env_file: .env
+    environment:
+      FALKORDB_HOST: falkordb
+      FALKORDB_PORT: 6379
+      LOOM_AUTH_FILE: /app/.secrets/server/auth.json
+    volumes:
+      - ./.secrets/server:/app/.secrets/server:ro
+      - ./artifacts/platform:/app/artifacts/platform:ro
+      - ./artifacts/mcp:/app/artifacts/mcp:ro
+    ports:
+      - "127.0.0.1:${LOOM_API_PORT:-8000}:8000"
+    depends_on:
+      falkordb:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2)"]
+      start_period: 35s
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    command: [python, -m, uvicorn, backend.app.main:app, --host, 0.0.0.0, --port, '8000', --workers, '1', --no-access-log]
+    profiles: [app]
+    restart: unless-stopped
+  router:
+    build: .
+    env_file: .env
+    environment:
+      FALKORDB_HOST: falkordb
+      FALKORDB_PORT: 6379
+    command: [python, -m, scripts.router]
+    depends_on:
+      falkordb:
+        condition: service_healthy
+      gateway:
+        condition: service_healthy
+    profiles: [app]
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, python, -m, scripts.router, --health]
+      start_period: 35s
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  client:
+    build: .
+    environment:
+      LOOM_URL: http://gateway:8000
+      LOOM_PUBLIC_URL: http://127.0.0.1:${LOOM_API_PORT:-8000}
+      LOOM_TOKEN_FILE: /app/.secrets/agent_tokens.json
+    volumes:
+      - ./.secrets/agent_tokens.json:/app/.secrets/agent_tokens.json:ro
+      - ./artifacts:/app/artifacts
+    depends_on:
+      gateway:
+        condition: service_healthy
+    command: [python, -m, agents.demo_two_agents]
+    profiles: [tools]
+  tests:
+    build: .
+    environment:
+      FALKORDB_HOST: falkordb
+      FALKORDB_PORT: 6379
+      FALKORDB_PASSWORD: ${FALKORDB_PASSWORD}
+      NVIDIA_LIVE_ENABLED: 'false'
+    volumes:
+      - ./artifacts:/app/artifacts
+    depends_on:
+      falkordb:
+        condition: service_healthy
+    command: [python, -m, pytest, tests, -q, --tb=short, --junitxml=artifacts/release/docker-tests.xml]
+    profiles: [tools]
+  operator:
+    build: .
+    user: "${LOOM_OPERATOR_UID:-0}:${LOOM_OPERATOR_GID:-0}"
+    environment:
+      LOOM_URL: http://gateway:8000
+      LOOM_PUBLIC_URL: http://127.0.0.1:${LOOM_API_PORT:-8000}
+      FALKORDB_HOST: falkordb
+      FALKORDB_PORT: 6379
+      FALKORDB_PASSWORD: ${FALKORDB_PASSWORD}
+      LOOM_GRAPH_NAMESPACE: ${LOOM_GRAPH_NAMESPACE:-demo}
+      LOOM_AUTH_FILE: /app/.secrets/auth.json
+      NVIDIA_LIVE_ENABLED: 'false'
+    volumes:
+      - ./.secrets:/app/.secrets
+    depends_on:
+      gateway:
+        condition: service_healthy
+    command: [python, -m, scripts.platform_setup]
+    profiles: [tools]
+  mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile.mcp
+    user: "${LOOM_OPERATOR_UID:-0}:${LOOM_OPERATOR_GID:-0}"
+    entrypoint: [python, -m, loomline_mcp.docker_entrypoint]
+    environment:
+      PYTHONDONTWRITEBYTECODE: '1'
+    volumes:
+      - ${LOOM_MCP_DIRECTORY:-./.secrets/connections/unconfigured}:/run/loomline:ro
+    read_only: true
+    tmpfs:
+      - /tmp:rw,nosuid,nodev,noexec,size=1m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    profiles: [tools]
+  integrations:
+    build:
+      context: .
+      dockerfile: Dockerfile.integrations
+    environment:
+      LOOM_URL: http://gateway:8000
+      LOOM_PUBLIC_URL: http://127.0.0.1:${LOOM_API_PORT:-8000}
+      LOOM_TOKEN_FILE: /app/.secrets/platform_tokens.json
+    volumes:
+      - ./.secrets/platform_tokens.json:/app/.secrets/platform_tokens.json:ro
+      - ./artifacts/platform:/app/artifacts/platform
+    depends_on:
+      gateway:
+        condition: service_healthy
+    profiles: [tools]
+volumes:
+  graph_data:

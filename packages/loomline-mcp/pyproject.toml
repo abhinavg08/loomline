@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=77,<85", "wheel>=0.45,<0.49"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loomline-mcp"
+version = "0.1.0"
+description = "Authenticated stdio MCP memory and coordination through Loomline and FalkorDB"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+license = "MIT"
+dependencies = ["loomline-sdk==0.1.0", "mcp==2.2.0"]
+
+[project.scripts]
+loomline-mcp = "loomline_mcp.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
