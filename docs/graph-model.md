@@ -1,6 +1,6 @@
 # Loomline graph model
 
-FalkorDB is Loomline's authoritative storage and relationship engine. This document follows the actual [schema](../backend/app/schema.py), [repository](../backend/app/repository.py), [platform routes](../backend/app/platform.py), [coordination routes](../backend/app/coordination.py), [read-only graph explorer](../backend/app/graph_view.py) and [event router](../backend/app/router.py). Start with [the visual graph guide](MEMORY_GRAPH_GUIDE.md) for the Studio controls.
+FalkorDB is Loomline's authoritative storage and relationship engine. This document follows the actual [schema](../backend/app/schema.py), [repository](../backend/app/repository.py), [platform routes](../backend/app/platform.py), [coordination routes](../backend/app/coordination.py), [read-only graph explorer](../backend/app/graph_view.py) and [event router](../backend/app/router.py). Start with [the visual graph guide](memory-graph.md) for the Studio controls.
 
 The diagrams describe the implemented model. They do not imply every edge appears on every task: a blank coding task may have no dependency entities, a memory may have no supporting evidence yet, and a handoff may reference no memories.
 
@@ -105,7 +105,7 @@ Context/trace/history use bounded per-query snapshots, not one cross-query atomi
 
 Open Studio, authenticate with a project-scoped viewer, select the project by title, and open **Memory Graph**. Selecting or expanding a node makes authenticated `GET` requests only. These requests do not initialize MCP, create sessions, invoke a model, or append tool activity. A fresh installation has its own empty database and credentials; no original developer task or private profile is required.
 
-An optional host-side command can inspect the same public SDK trace operations. First install the SDK and MCP package following [agent setup](AGENT_SETUP.md), then run from the extracted source root:
+An optional host-side command can inspect the same public SDK trace operations. First install the SDK and MCP package following [agent setup](connect-agents.md), then run from the extracted source root:
 
 ```text
 python -m scripts.inspect_demo_graph --task-id YOUR_PROJECT_ID --profile .secrets/connections/agent/host.profile.json
@@ -249,6 +249,6 @@ Incident telemetry is synthetic even when inference is live. The NL website task
 
 [Real-database graph tests](../tests/test_graph_view.py) create source-linked memories, evidence, a disputed hypothesis and a handoff through the actual public API. They compare displayed relationships with stored FalkorDB edges, instrument the real read path to reject writes, and check unchanged database snapshots after reads. They cover task assignment, token task restrictions, separate tenants, read-only viewers, paging/filter validation, type-qualified ID collisions and a 105-memory API-created workload with bounded output. They do not substitute mocks for storage.
 
-The [current acceptance report](../FINAL_USER_ACCEPTANCE_REPORT.md) records the final complete release checks. Benchmark thresholds in tests are regression guards on the tested local environment, not universal latency guarantees. A graph request uses several independently consistent read queries, rather than a single cross-query atomic snapshot. Concurrent writes can therefore become visible across different query steps; refresh after a mutation and use lifecycle versions for coordination decisions.
+The [current acceptance report](verification.md) records the final complete release checks. Benchmark thresholds in tests are regression guards on the tested local environment, not universal latency guarantees. A graph request uses several independently consistent read queries, rather than a single cross-query atomic snapshot. Concurrent writes can therefore become visible across different query steps; refresh after a mutation and use lifecycle versions for coordination decisions.
 
 Client/framework metadata is self-declared until independently confirmed by the application owner. Authenticated authorship proves which principal wrote a record, not the truth of every statement in its content or which application binary ran. No graph visualization can manufacture a missing retrieval-to-decision link.

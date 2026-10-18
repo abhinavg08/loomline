@@ -237,9 +237,9 @@ async def public_help(document: str):
     """Explicit public manuals only; never expose arbitrary workspace files."""
     from fastapi.responses import Response
     from .config import ROOT
-    documents = {'README': 'README.md', 'START_HERE': 'START_HERE.md',
-                 'AGENT_SETUP': 'docs/AGENT_SETUP.md', 'STUDIO_AUTH': 'docs/STUDIO_AUTH.md',
-                 'GRAPH_MODEL': 'docs/GRAPH_MODEL.md', 'MEMORY_GRAPH_GUIDE': 'docs/MEMORY_GRAPH_GUIDE.md'}
+    documents = {'README': 'README.md', 'START_HERE': 'docs/getting-started.md',
+                 'AGENT_SETUP': 'docs/connect-agents.md', 'STUDIO_AUTH': 'docs/security.md',
+                 'GRAPH_MODEL': 'docs/graph-model.md', 'MEMORY_GRAPH_GUIDE': 'docs/memory-graph.md'}
     name = document[:-3] if document.lower().endswith('.md') else document
     relative = documents.get(name.upper())
     if relative is None:

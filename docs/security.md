@@ -17,7 +17,7 @@ keeps existing configuration and database ownership unchanged.
 
 ## First connection
 
-Complete [Start here](../START_HERE.md) through Docker startup, then run in the
+Complete [Start here](getting-started.md) through Docker startup, then run in the
 **host terminal at your extracted release directory**:
 
 ```text
@@ -164,4 +164,4 @@ uniquely owned FalkorDB graphs. `tests/test_onboard.py` covers fresh bootstrap
 uniqueness/idempotence, real scoped identities and sessions, viewer denial,
 revocation retaining history, private file protection and JSON/TOML paths with
 spaces. Packaged installation acceptance is recorded separately in
-[the user acceptance report](../FINAL_USER_ACCEPTANCE_REPORT.md).
+[the user acceptance report](verification.md).

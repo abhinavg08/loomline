@@ -6,8 +6,8 @@ authoritative memory engine**. Coding applications retain their own models.
 There is no public MCP HTTP listener, arbitrary Cypher, shell/file tool or
 provider-inference tool.
 
-Start with the source distribution's [START_HERE](../../START_HERE.md), then
-[Connect Your Agent](../../docs/AGENT_SETUP.md). The portable default runs this
+Start with the source distribution's [START_HERE](../../docs/getting-started.md), then
+[Connect Your Agent](../../docs/connect-agents.md). The portable default runs this
 adapter in Docker, with only one selected identity's private token/profile
 directory mounted read-only. The operator generates settings using your actual
 checkout directory, without configuring your installed coding applications.
@@ -43,7 +43,7 @@ URI and inspect it in Studio's Memory Graph. A passing independent client is
 not proof that a vendor application ran. Verify a genuine application call in
 your own installation and distinguish it from protocol-test activity.
 
-See the [memory contract](../../docs/LOOMLINE_MEMORY_CONTRACT_V0_1.md),
-[graph guide](../../docs/MEMORY_GRAPH_GUIDE.md),
-[identity guide](../../docs/STUDIO_AUTH.md) and
-[release acceptance report](../../FINAL_USER_ACCEPTANCE_REPORT.md).
+See the [memory contract](../../docs/memory-contract.md),
+[graph guide](../../docs/memory-graph.md),
+[identity guide](../../docs/security.md) and
+[release acceptance report](../../docs/verification.md).

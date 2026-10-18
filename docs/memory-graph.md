@@ -8,8 +8,8 @@ Choose **Memory Graph** to explore the records FalkorDB actually persisted.
 The graph is a bounded view of one authorized project. It is not a picture of
 the whole database, a model's hidden reasoning or a reconstructed transcript.
 An empty project correctly has no memories or provenance paths yet. Follow
-[START_HERE](../START_HERE.md) to record the first memory, or
-[Connect your agent](AGENT_SETUP.md) to let your own agent invoke the tools.
+[START_HERE](getting-started.md) to record the first memory, or
+[Connect your agent](connect-agents.md) to let your own agent invoke the tools.
 
 ## Find and inspect a memory
 
@@ -90,7 +90,7 @@ The graph displays actual returned edges. Shared project membership alone is
 not a direct “used this memory” edge. A claim's current owner is a property;
 the explorer does not manufacture an ownership relationship. Evidence source
 metadata is a property, not a fictional `Evidence → Turn` edge. The complete
-implemented schema is in [GRAPH_MODEL](GRAPH_MODEL.md).
+implemented schema is in [GRAPH_MODEL](graph-model.md).
 
 ## Understand who participated
 
@@ -219,6 +219,6 @@ Counts and activity are historical observations rather than live connectivity.
 
 Private source/evidence prose can itself contain sensitive project information.
 Review what is visible before sharing a screenshot even though tokens are
-excluded. Use [STUDIO_AUTH](STUDIO_AUTH.md) for provisioning, viewer setup and
-revocation, and [FINAL_USER_ACCEPTANCE_REPORT](../FINAL_USER_ACCEPTANCE_REPORT.md)
+excluded. Use [STUDIO_AUTH](security.md) for provisioning, viewer setup and
+revocation, and [FINAL_USER_ACCEPTANCE_REPORT](verification.md)
 for measured correctness, isolation, browser checks and remaining limitations.

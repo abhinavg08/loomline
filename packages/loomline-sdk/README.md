@@ -5,9 +5,9 @@ Core dependencies are **HTTPX and Pydantic**: no backend, FalkorDB driver, model
 provider or framework import is required. Sync `LoomlineClient` and async
 `AsyncLoomlineClient` use the same memory/coordination contract.
 
-Start the server with the source distribution's [START_HERE](../../START_HERE.md).
+Start the server with the source distribution's [START_HERE](../../docs/getting-started.md).
 Provision your own task-scoped `python_agent` identity using
-[Connect Your Agent](../../docs/AGENT_SETUP.md#custom-python-agents). From the
+[Connect Your Agent](../../docs/connect-agents.md#custom-python-agents). From the
 source root, install in your own Python **3.12** environment:
 
 ```text
@@ -52,18 +52,18 @@ The API supports episodic observations, semantic facts/hypotheses/decisions,
 proposed/approved/retired procedures, evidence and challenges, provenance,
 cross-session history, exclusive leased claims and versioned handoffs. Reads
 are bounded and tenant/task authorized. A read-only viewer can inspect but
-cannot create a session. The [memory contract](../../docs/LOOMLINE_MEMORY_CONTRACT_V0_1.md)
+cannot create a session. The [memory contract](../../docs/memory-contract.md)
 defines lifecycle, idempotency, cursor and consistency semantics.
 
 Optional extras `[langchain]`, `[langgraph]`, `[crewai]` and `[all]` supply native
 integrations. These are SDK/framework adapters, not MCP installations. The
-[framework guide](../../docs/AGENT_SETUP.md#native-python-frameworks) includes
+[framework guide](../../docs/connect-agents.md#native-python-frameworks) includes
 separate installs, the executable four-runtime lab, optional NVIDIA setup and
 upstream dependency-security limitations. Keep optional frameworks separate
 from the backend and standalone MCP environments. Use core-only installation
 when frameworks are unnecessary.
 
 Explore actual returned relationships in
-[Memory Graph](../../docs/MEMORY_GRAPH_GUIDE.md). Executed release checks and
+[Memory Graph](../../docs/memory-graph.md). Executed release checks and
 remaining limitations are in the
-[acceptance report](../../FINAL_USER_ACCEPTANCE_REPORT.md).
+[acceptance report](../../docs/verification.md).

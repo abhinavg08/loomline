@@ -18,7 +18,7 @@ COPY agents agents
 COPY examples examples
 COPY tests tests
 COPY pytest.ini .env.example ./
-COPY README.md START_HERE.md ./
+COPY README.md ./
 COPY docs docs
 COPY --from=ui /ui/dist frontend/dist
 CMD ["python", "-m", "uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--workers", "1", "--no-access-log"]

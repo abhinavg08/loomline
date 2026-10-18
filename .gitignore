@@ -35,3 +35,11 @@ data/
 *.profile.json
 packages/*/build/
 packages/*/dist/
+
+# Product guides live in docs/. Prior local notebooks stay private.
+/*.md
+!/README.md
+/environment.yml
+/scripts/final_mcp_readonly.py
+/scripts/mcp_operator_check.py
+/scripts/mcp_owner_report.py

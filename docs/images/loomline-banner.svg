@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="352" viewBox="0 0 1280 352" role="img" aria-labelledby="title desc">
+  <title id="title">Loomline — Different agents. One evolving memory.</title>
+  <desc id="desc">Loomline wordmark with three independent agent paths converging on connected memory, evidence and handoff nodes. Powered by FalkorDB.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#103b34"/><stop offset="1" stop-color="#1d5145"/>
+    </linearGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#c9e7d8" opacity=".09"/>
+    </pattern>
+    <linearGradient id="path" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#7dc9aa"/><stop offset="1" stop-color="#d8c384"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="352" rx="20" fill="url(#background)"/>
+  <rect width="1280" height="352" rx="20" fill="url(#grid)"/>
+  <path d="M1070 0V352M750 0V352" stroke="#d8e7dc" stroke-opacity=".04"/>
+  <g fill="none" stroke="#90d5b7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="64" y="54" width="46" height="46" rx="12" fill="#295b4d" stroke="#72bda0" stroke-width="1"/>
+    <path d="M77 66V86H97M86 66V77H97"/>
+  </g>
+  <text x="64" y="169" fill="#f4f7ed" font-family="Segoe UI, Arial, sans-serif" font-weight="700" font-size="68" letter-spacing="-3">loomline</text>
+  <text x="67" y="211" fill="#cfe3d5" font-family="Segoe UI, Arial, sans-serif" font-size="24" letter-spacing="-.3">Different agents. One evolving memory.</text>
+  <rect x="65" y="253" width="203" height="31" rx="15.5" fill="#2b5c4d" stroke="#608c73" stroke-width=".8"/>
+  <circle cx="82" cy="268.5" r="3" fill="#b6ce8f"/>
+  <text x="94" y="274" fill="#e4eccf" font-family="Segoe UI, Arial, sans-serif" font-size="13" letter-spacing=".25">POWERED BY FALKORDB</text>
+  <g fill="none" stroke="url(#path)" stroke-width="2.5" opacity=".8">
+    <path d="M771 88C847 88 819 166 903 166"/>
+    <path d="M748 174H903"/>
+    <path d="M772 261C847 261 819 166 903 166"/>
+    <path d="M939 166C1005 166 1011 97 1086 97"/>
+    <path d="M939 166H1130"/>
+    <path d="M939 166C1005 166 1011 249 1086 249"/>
+  </g>
+  <g font-family="Segoe UI, Arial, sans-serif" text-anchor="middle" font-size="12" fill="#bfd9c9">
+    <circle cx="759" cy="88" r="12" fill="#2b6451" stroke="#83c8a9" stroke-width="1.5"/>
+    <circle cx="735" cy="174" r="12" fill="#2b6451" stroke="#83c8a9" stroke-width="1.5"/>
+    <circle cx="759" cy="261" r="12" fill="#2b6451" stroke="#83c8a9" stroke-width="1.5"/>
+    <text x="759" y="58">INVESTIGATE</text>
+    <text x="735" y="212">CHALLENGE</text>
+    <text x="759" y="300">CONTINUE</text>
+    <circle cx="921" cy="166" r="37" fill="#2c5a47" stroke="#c8cc92" stroke-width="1.5"/>
+    <circle cx="921" cy="166" r="46" fill="none" stroke="#c8cc92" stroke-opacity=".15"/>
+    <text x="921" y="171" font-size="12" fill="#f1edcc" letter-spacing="1">MEMORY</text>
+    <circle cx="1098" cy="97" r="11" fill="#cbbd84" stroke="#e5dcaf"/>
+    <text x="1098" y="66" fill="#dedbb9">SOURCES</text>
+    <circle cx="1142" cy="166" r="11" fill="#89b4c2" stroke="#b6d7dd"/>
+    <text x="1142" y="205" fill="#cae0e2">EVIDENCE</text>
+    <circle cx="1098" cy="249" r="11" fill="#9cabc6" stroke="#c9d1e1"/>
+    <text x="1098" y="288" fill="#d0d9e6">HANDOFFS</text>
+  </g>
+  <path d="M65 322H1215" stroke="#bcd8c6" stroke-opacity=".12"/>
+</svg>

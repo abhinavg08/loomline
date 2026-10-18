@@ -6,7 +6,7 @@ the agent must actually call them to save or retrieve anything. A connected
 server does not automatically capture conversations, code changes or terminal
 output.
 
-Complete [START_HERE](../START_HERE.md) first. You need a healthy Docker
+Complete [START_HERE](getting-started.md) first. You need a healthy Docker
 installation, the extracted Loomline directory, a named project, and its printed
 `project_id`. Run all operator commands below **from that directory on the
 server's host computer**. They run a trusted local operator container; there is
@@ -303,7 +303,7 @@ with LoomlineClient(profile["base_url"], token=token) as client:
 The convenience call commits a source turn followed by its memory as two
 separate idempotent writes. A fresh process can resolve the same reference;
 another identity must also be assigned to the project. The async client exposes
-the same operations. The [memory contract](LOOMLINE_MEMORY_CONTRACT_V0_1.md)
+the same operations. The [memory contract](memory-contract.md)
 defines lifecycle and retry semantics; the gateway's `/docs` page lists the
 authenticated HTTP operations for bounded recall, history, challenges, claims,
 versioned handoffs and recovery cursors. Close the
@@ -481,7 +481,7 @@ shared memory uses FalkorDB through the SDK. That limits the affected paths
 used by this local example; it does not fix or remove the advisory packages.
 Review upstream compatibility before exposing additional services. This
 release's exact executed dependency checks and remaining risks belong in
-[the acceptance report](../FINAL_USER_ACCEPTANCE_REPORT.md).
+[the acceptance report](verification.md).
 
 For a smaller non-framework check from a second named-project identity,
 provision `project_reader` on that same `PROJECT_ID`, then run:
@@ -578,5 +578,5 @@ not attest which vendor application binary ran. The owner separately confirms
 the earlier genuine Codex CLI + Antigravity CLI collaboration and fresh Codex
 recovery. Claude Code, Antigravity IDE and a genuine three-application mission
 still need the owner's manual checks. See
-[FINAL_USER_ACCEPTANCE_REPORT](../FINAL_USER_ACCEPTANCE_REPORT.md) for this
+[FINAL_USER_ACCEPTANCE_REPORT](verification.md) for this
 release's executed results and remaining limitations.

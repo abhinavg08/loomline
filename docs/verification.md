@@ -1,4 +1,30 @@
-# Loomline 0.2.0 — final user acceptance
+# Release verification
+
+## Submission repository checks · 2026-10-18
+
+The submission layout moves the public guides under `docs/`, adds a visual
+product overview and evaluator walkthrough, and excludes three owner-specific
+audit helpers plus the redundant local Conda environment file. Their local
+copies are retained privately. Source, regression suites, SDK/MCP packages,
+examples and pinned Docker/dependency configuration remain available.
+
+- Backend/SDK regression rerun: **61 passed**, real FalkorDB, 45.68 s.
+- Independent MCP rerun: **21 passed, 1 skipped**, real FalkorDB, 126.68 s.
+  The Windows symlink skip remains platform-specific. The 104-request mix had
+  zero errors; its local timing is not a deployment guarantee.
+- Exported documentation: local links and heading anchors checked; credentials
+  and prohibited files rejected by the source/archive scanner.
+- The restructured source export builds successfully in Docker, including the
+  compiled Studio and its relocated public manuals. Existing `/help/` document
+  identifiers remain compatible.
+
+The first host pytest invocation hit a Windows sandbox restriction on its
+default temporary directory: 50 passed and 11 setup errors. The complete rerun
+used a new workspace-owned temporary directory and passed all 61 tests. The
+failed attempt remains in private engineering receipts.
+
+The record below describes the earlier complete portable-release acceptance;
+candidate archive names, hashes and counts refer to those historical packages.
 
 **Assessment: GO WITH LIMITATIONS for local teammate evaluation and a Track 2
 demonstration.** The portable setup, shared-memory engine and interactive product
@@ -11,6 +37,39 @@ Product release 0.2.0 retains SDK/MCP package versions 0.1.0 and memory contract
 0.1. Existing task IDs, default idempotency receipts and memory semantics remain
 compatible. This report records verification before initial source publication;
 no hackathon submission was performed.
+
+## Run the regression suite
+
+With the platform initialized and FalkorDB healthy, run the backend and SDK
+suite from the repository root:
+
+```text
+docker compose --profile app run --rm --build tests
+```
+
+The suite creates unique `test_` graph namespaces and temporary credentials.
+It removes only the graphs it owns; existing projects and volumes are retained.
+Provider calls are disabled. The intentionally failing cache exercise under
+`examples/mcp_collaboration` is a separate demonstration fixture.
+
+The standalone MCP suite needs host Python 3.12 and two isolated environments.
+Windows PowerShell, from the source root:
+
+```powershell
+py -3.12 -m venv .venv-backend
+.\.venv-backend\Scripts\python.exe -m pip install -r requirements.lock.txt ./packages/loomline-sdk
+py -3.12 -m venv .venv-mcp
+.\.venv-mcp\Scripts\python.exe -m pip install -r requirements.mcp.lock.txt ./packages/loomline-sdk ./packages/loomline-mcp
+.\.venv-backend\Scripts\python.exe -m scripts.mcp_verify
+```
+
+On macOS/Linux, create those environments with `python3.12 -m venv` and use
+`.venv-backend/bin/python` / `.venv-mcp/bin/python`. The harness launches
+independent stdio clients and a gateway against disposable real FalkorDB
+graphs. It does not launch vendor coding applications.
+
+Build Studio with `npm ci` followed by `npm run build` in `frontend/`, or use
+the Docker build above to compile it without host Node.
 
 ## Tested environment and package
 
@@ -105,9 +164,9 @@ These show **independent protocol acceptance activity**, not vendor application
 execution or an LLM-generated investigation. The final acceptance task is
 explicitly marked synthetic; its memories and relationships are actual commits.
 
-![Desktop Memory Graph with actual source, author, memory, evidence and handoff edges](docs/images/studio-memory-graph-desktop.png)
+![Desktop Memory Graph with actual source, author, memory, evidence and handoff edges](images/studio-memory-graph-desktop.png)
 
-![Mobile collaboration view distinguishing contributors, authorization and historical sessions](docs/images/studio-collaboration-mobile.png)
+![Mobile collaboration view distinguishing contributors, authorization and historical sessions](images/studio-collaboration-mobile.png)
 
 ## Historical preservation exception
 
@@ -173,9 +232,9 @@ presence. Claims coordinate principals; they do not lock Git worktrees/files.
 
 ## Reproduce
 
-Follow [START_HERE](START_HERE.md) for the Docker-only first-user journey,
-[AGENT_SETUP](docs/AGENT_SETUP.md) for all integrations and
-[MEMORY_GRAPH_GUIDE](docs/MEMORY_GRAPH_GUIDE.md) for the product controls.
+Follow [START_HERE](getting-started.md) for the Docker-only first-user journey,
+[AGENT_SETUP](connect-agents.md) for all integrations and
+[MEMORY_GRAPH_GUIDE](memory-graph.md) for the product controls.
 
 Maintainers with Python 3.12 and Docker can run the packaged acceptance harness:
 

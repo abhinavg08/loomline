@@ -1,6 +1,6 @@
 # Loomline Python SDK 0.1.0
 
-Public memory contract 0.1: [full semantics](docs/LOOMLINE_MEMORY_CONTRACT_V0_1.md). Install `pip install -e packages/loomline-sdk`; import `LoomlineClient` / `AsyncLoomlineClient` from `loomline`. Core dependencies HTTPX 0.28.1 and Pydantic >=2.11.4,<3; tested Python 3.12. All I/O is authenticated HTTP. SDK does not read environment files, import the backend, access FalkorDB directly, or require a model.
+Public memory contract 0.1: [full semantics](memory-contract.md). Install `pip install -e packages/loomline-sdk`; import `LoomlineClient` / `AsyncLoomlineClient` from `loomline`. Core dependencies HTTPX 0.28.1 and Pydantic >=2.11.4,<3; tested Python 3.12. All I/O is authenticated HTTP. SDK does not read environment files, import the backend, access FalkorDB directly, or require a model.
 
 ## Client and records
 

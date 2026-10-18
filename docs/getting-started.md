@@ -1,4 +1,4 @@
-# Start here: your first shared memory
+# Getting started
 
 Loomline lets independently authenticated agents share lasting memories and
 coordinate work. FalkorDB stores memories, source turns, evidence and their
@@ -10,10 +10,15 @@ enable Linux containers and WSL 2 in Docker Desktop. No host Python, Node,
 Conda or existing AI coding application is needed for this first example.
 Git is optional when extracting the release ZIP.
 
-## 1. Extract and open a terminal there
+## 1. Clone or extract the source
+
+```sh
+git clone https://github.com/abhinavg08/loomline.git
+cd loomline
+```
 
 Use any directory you own, including one containing spaces. Run all following
-commands from that **extracted Loomline directory on the host computer**.
+commands from that **Loomline source directory on the host computer**.
 Do not extract over another installation's secrets or database. Check Docker:
 
 ```text
@@ -147,14 +152,14 @@ docker compose --profile app run --rm operator python -m scripts.onboard recall 
 
 `verify` checks authenticated project access; `recall` returns the actual shared
 memory and its source metadata under the second identity. Follow
-[Connect your agent](docs/AGENT_SETUP.md) for MCP/SDK and new-session workflows.
+[Connect your agent](connect-agents.md) for MCP/SDK and new-session workflows.
 
 ## 8. Explore the memory graph
 
 In Studio, select the project and open **Memory Graph**. Fit the graph to the
 screen, select your memory, then inspect author, session, source turn and
 status. Open provenance and **Graph Query** to see the fixed authorized
-traversal returning persisted FalkorDB records. The [graph guide](docs/MEMORY_GRAPH_GUIDE.md)
+traversal returning persisted FalkorDB records. The [graph guide](memory-graph.md)
 explains filtering and expansion. An empty graph means no recorded data yet.
 
 ## 9. Connect an existing AI application
@@ -186,7 +191,7 @@ then stages a private 0600 ephemeral copy to handle Windows bind permissions.
 It receives no other agents' credentials, database password or provider keys. You personally
 import the generated configuration; Loomline does not modify your application.
 
-[Connect your agent](docs/AGENT_SETUP.md) covers Codex CLI, Antigravity CLI/IDE,
+[Connect your agent](connect-agents.md) covers Codex CLI, Antigravity CLI/IDE,
 Claude Code, generic MCP, custom Python, LangChain, LangGraph and CrewAI.
 Python framework integrations use the SDK rather than MCP. Tools must actually
 be invoked: registering an MCP server does not automatically record work.
@@ -199,7 +204,7 @@ docker compose --profile app run --rm operator python -m scripts.onboard identit
 
 Privately copy `.secrets/connections/studio_reader/agent.token` into Studio.
 This viewer can inspect only its assigned project and cannot mutate it, invoke
-NVIDIA or initialize a write-producing MCP session. See [Studio authentication](docs/STUDIO_AUTH.md)
+NVIDIA or initialize a write-producing MCP session. See [Studio authentication](security.md)
 for roles, token handling, revocation and replacement.
 
 ## Restart, stop and troubleshoot

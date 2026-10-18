@@ -118,9 +118,9 @@ async def test_me_capabilities_respect_role_and_task_scope_without_granting_perm
 
 
 async def test_public_help_serves_only_fixed_safe_markdown_without_authentication(client):
-    allowed = {'README': 'README.md', 'START_HERE': 'START_HERE.md',
-               'AGENT_SETUP': 'docs/AGENT_SETUP.md', 'STUDIO_AUTH': 'docs/STUDIO_AUTH.md',
-               'GRAPH_MODEL': 'docs/GRAPH_MODEL.md', 'MEMORY_GRAPH_GUIDE': 'docs/MEMORY_GRAPH_GUIDE.md'}
+    allowed = {'README': 'README.md', 'START_HERE': 'docs/getting-started.md',
+               'AGENT_SETUP': 'docs/connect-agents.md', 'STUDIO_AUTH': 'docs/security.md',
+               'GRAPH_MODEL': 'docs/graph-model.md', 'MEMORY_GRAPH_GUIDE': 'docs/memory-graph.md'}
     for document, relative in allowed.items():
         # Even an invalid bearer is irrelevant: these exact shipped public
         # documents are intentionally available before a user signs in.

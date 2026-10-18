@@ -8,12 +8,13 @@ import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
 SOURCE_DIRS={'agents','backend','scripts','tests','mcp_tests','examples','docs','packages/loomline-sdk','packages/loomline-mcp'}
-ROOT_FILES={'LICENSE','.gitignore','.dockerignore','.env.example','Dockerfile','Dockerfile.integrations','Dockerfile.mcp','docker-compose.yml','environment.yml','pytest.ini','requirements.txt','requirements.lock.txt','requirements.frameworks.lock.txt','requirements.mcp.lock.txt'}
+ROOT_FILES={'LICENSE','.gitignore','.dockerignore','.env.example','Dockerfile','Dockerfile.integrations','Dockerfile.mcp','docker-compose.yml','pytest.ini','requirements.txt','requirements.lock.txt','requirements.frameworks.lock.txt','requirements.mcp.lock.txt'}
 FRONT_FILES={'package.json','package-lock.json','index.html','vite.config.js'}
-PROVIDER=re.compile(rb'nvapi-[A-Za-z0-9_-]{30,}')
-PRODUCT_MANUALS={'README.md','START_HERE.md','FINAL_USER_ACCEPTANCE_REPORT.md','SDK_REFERENCE.md','MCP_TOOLS_REFERENCE.md','INTEGRATIONS.md'}
-PRODUCT_DOCS={'AGENT_SETUP.md','STUDIO_AUTH.md','GRAPH_MODEL.md','MEMORY_GRAPH_GUIDE.md','LOOMLINE_MEMORY_CONTRACT_V0_1.md'}
-PUBLIC_IMAGES={'studio-memory-graph-desktop.png','studio-collaboration-mobile.png'}
+PROVIDER=re.compile(rb'(?:nvapi-[A-Za-z0-9_-]{30,}|github_pat_[A-Za-z0-9_]{20,}|gh[pousr]_[A-Za-z0-9]{20,})')
+PRODUCT_MANUALS={'README.md'}
+PRODUCT_DOCS={'README.md','getting-started.md','demo.md','verification.md','sdk.md','mcp-tools.md','integrations.md','connect-agents.md','security.md','graph-model.md','memory-graph.md','memory-contract.md'}
+PUBLIC_IMAGES={'studio-memory-graph-desktop.png','studio-collaboration-mobile.png','loomline-banner.svg'}
+LOCAL_AUDIT_HELPERS={'scripts/final_mcp_readonly.py','scripts/mcp_operator_check.py','scripts/mcp_owner_report.py'}
 
 
 def product_allowed(name):
@@ -27,6 +28,7 @@ def product_allowed(name):
 
 def allowed(name):
     if '\\' in name or ':' in name:return False
+    if name in LOCAL_AUDIT_HELPERS:return False
     p=PurePosixPath(name)
     if p.is_absolute() or '..' in p.parts:return False
     if any(part in ('.env','.secrets','.conda','.venv','node_modules','__pycache__','.git','artifacts','release','.pytest_cache') for part in p.parts):return False
